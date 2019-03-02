@@ -15,9 +15,9 @@ namespace RestaurantReviews.Data.Contracts.Repositories.Entities
 
         Task<IEnumerable<Restaurant>> GetRestaurantsByCondition(Expression<Func<Restaurant, bool>> expression);
 
-        Task<Restaurant> GetRestaurantById(Guid schoolId);
+        Task<Restaurant> GetRestaurantById(Guid restaurantId);
 
-        Task<RestaurantExtended> GetRestaurantWithDetails(Guid schoolId);
+        Task<RestaurantExtended> GetRestaurantWithDetails(Guid restaurantId);
 
         Task CreateRestaurant(Restaurant restaurant);
 

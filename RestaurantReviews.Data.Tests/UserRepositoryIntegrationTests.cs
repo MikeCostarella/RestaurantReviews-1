@@ -80,7 +80,7 @@ namespace RestaurantReviews.Data.Tests
                 // Act
                 var user = userRepository.GetUserById(DataSeeder.Users[0].Id).Result;
                 // Assert
-                Assert.IsNotNull(user, string.Format("Did not find school with Id: {0}", DataSeeder.Users[0].Id));
+                Assert.IsNotNull(user, string.Format("Did not find user with Id: {0}", DataSeeder.Users[0].Id));
             }
             catch (Exception ex)
             {

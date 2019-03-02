@@ -92,7 +92,7 @@ namespace RestaurantReviews.API.Controllers.CRUD
                 }
                 if (!ModelState.IsValid)
                 {
-                    _loggerManager.LogError("Invalid school object sent from client.");
+                    _loggerManager.LogError("Invalid userDto object sent from client.");
                     return BadRequest("Invalid model object");
                 }
                 var user = _mapper.Map<User>(userDto);

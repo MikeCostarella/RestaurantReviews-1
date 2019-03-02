@@ -35,13 +35,13 @@ namespace RestaurantReviews.API.Controllers.CRUD
         {
             try
             {
-                var schools = await _repositoryWrapper.Restaurant.GetAllRestaurants();
-                _loggerManager.LogInfo($"Returned all schools from database.");
-                return Ok(schools);
+                var restaurants = await _repositoryWrapper.Restaurant.GetAllRestaurants();
+                _loggerManager.LogInfo($"Returned all restaurants from database.");
+                return Ok(restaurants);
             }
             catch (Exception ex)
             {
-                _loggerManager.LogError($"Something went wrong inside GetAllSchools action: {ex.Message}");
+                _loggerManager.LogError($"Something went wrong inside GetAllRestaurants action: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
         }

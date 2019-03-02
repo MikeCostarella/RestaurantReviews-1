@@ -100,9 +100,9 @@ namespace RestaurantReviews.Data.Tests
                 // Arrange
                 var restaurantRepository = new RestaurantRepository(RestaurantReviewsContext);
                 // Act
-                var school = restaurantRepository.GetRestaurantById(DataSeeder.Restaurants[0].Id).Result;
+                var restaurant = restaurantRepository.GetRestaurantById(DataSeeder.Restaurants[0].Id).Result;
                 // Assert
-                Assert.IsNotNull(school, string.Format("Did not find Restaurant with Id: {0}", DataSeeder.Restaurants[0].Id));
+                Assert.IsNotNull(restaurant, string.Format("Did not find Restaurant with Id: {0}", DataSeeder.Restaurants[0].Id));
             }
             catch(Exception ex)
             {
@@ -133,11 +133,11 @@ namespace RestaurantReviews.Data.Tests
                 // Act
                 restaurantRepository.CreateRestaurant(newRestaurant).Wait();
                 // Assert
-                var savedSchool = restaurantRepository.GetRestaurantById(newRestaurant.Id).Result;
-                Assert.IsNotNull(savedSchool, string.Format("Restaurant {0} was not saved in the database", newRestaurant.Id));
-                Assert.IsTrue(savedSchool.Name == newRestaurant.Name, string.Format("Restaurant({0}).Name was not saved in the database", newRestaurant.Id));
+                var savedRestaurant = restaurantRepository.GetRestaurantById(newRestaurant.Id).Result;
+                Assert.IsNotNull(savedRestaurant, string.Format("Restaurant {0} was not saved in the database", newRestaurant.Id));
+                Assert.IsTrue(savedRestaurant.Name == newRestaurant.Name, string.Format("Restaurant({0}).Name was not saved in the database", newRestaurant.Id));
                 // Teardown
-                restaurantRepository.DeleteRestaurant(savedSchool).Wait();
+                restaurantRepository.DeleteRestaurant(savedRestaurant).Wait();
                 var shouldBeDeletedRestaurant = restaurantRepository.GetRestaurantById(newRestaurant.Id).Result;
                 Assert.IsTrue(shouldBeDeletedRestaurant.IsEmptyObject(), string.Format("Restaurant({0}) was not deleted from the database", newRestaurant.Id));
             }
@@ -168,21 +168,21 @@ namespace RestaurantReviews.Data.Tests
                     WebsiteUrl = "www.novosibirskeats.com"
                 };
                 restaurantRepository.CreateRestaurant(newRestaurant).Wait();
-                var savedSchool = restaurantRepository.GetRestaurantById(newRestaurant.Id).Result;
-                Assert.IsNotNull(savedSchool, string.Format("Restaurant {0} was not saved in the database", newRestaurant.Id));
-                Assert.IsTrue(savedSchool.Name == newRestaurant.Name, string.Format("Restaurant({0}).Name was not saved in the database", newRestaurant.Id));
+                var savedRestaurant = restaurantRepository.GetRestaurantById(newRestaurant.Id).Result;
+                Assert.IsNotNull(savedRestaurant, string.Format("Restaurant {0} was not saved in the database", newRestaurant.Id));
+                Assert.IsTrue(savedRestaurant.Name == newRestaurant.Name, string.Format("Restaurant({0}).Name was not saved in the database", newRestaurant.Id));
 
                 // Act
                 newRestaurant.Name = "Novosibirsk Eats 2 - Modified";
-                restaurantRepository.UpdateRestaurant(savedSchool, newRestaurant).Wait();
+                restaurantRepository.UpdateRestaurant(savedRestaurant, newRestaurant).Wait();
 
                 // Assert
-                var retrievedRestaurant = restaurantRepository.GetRestaurantById(savedSchool.Id).Result;
+                var retrievedRestaurant = restaurantRepository.GetRestaurantById(savedRestaurant.Id).Result;
                 Assert.IsFalse(retrievedRestaurant.IsEmptyObject(), string.Format("Updated restaurant({0}) was not retrieved from the database", newRestaurant.Id));
                 Assert.IsTrue(retrievedRestaurant.Name == newRestaurant.Name, string.Format("Restaurant({0}).Name was not updated in the database", newRestaurant.Id));
 
                 // Teardown
-                restaurantRepository.DeleteRestaurant(savedSchool).Wait();
+                restaurantRepository.DeleteRestaurant(savedRestaurant).Wait();
                 var shouldBeDeletedRestaurant = restaurantRepository.GetRestaurantById(newRestaurant.Id).Result;
                 Assert.IsTrue(shouldBeDeletedRestaurant.IsEmptyObject(), string.Format("Restaurant({0}) was not deleted from the database", newRestaurant.Id));
             }

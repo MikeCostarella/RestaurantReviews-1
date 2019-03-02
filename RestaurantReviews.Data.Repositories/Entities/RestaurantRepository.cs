@@ -33,9 +33,9 @@ namespace RestaurantReviews.Data.Repositories.Entities
             return await this.RepositoryContext.Set<Restaurant>().Where(expression).ToListAsync();
         }
 
-        public async Task<Restaurant> GetRestaurantById(Guid schoolId)
+        public async Task<Restaurant> GetRestaurantById(Guid restaurantId)
         {
-            return (await FindByCondition(student => student.Id.Equals(schoolId)))
+            return (await FindByCondition(student => student.Id.Equals(restaurantId)))
                     .DefaultIfEmpty(new Restaurant())
                     .FirstOrDefault();
         }
@@ -48,10 +48,10 @@ namespace RestaurantReviews.Data.Repositories.Entities
             };
         }
 
-        public async Task CreateRestaurant(Restaurant school)
+        public async Task CreateRestaurant(Restaurant restaurant)
         {
-            school.Id = Guid.NewGuid();
-            await Create(school);
+            restaurant.Id = Guid.NewGuid();
+            await Create(restaurant);
             await Save();
         }
 
